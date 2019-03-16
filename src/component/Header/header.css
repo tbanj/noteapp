@@ -1,0 +1,15 @@
+.fixednav {
+    position: fixed;
+    width: 100%;
+   
+}
+
+.setFontColor {
+    color: white;
+    /* font-size: 22px; */
+
+}
+.iconNote {
+    font-size: 2em;
+    margin-right: 20%;
+}
