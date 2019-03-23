@@ -1,8 +1,5 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import Popper from 'popper.js';
-import 'font-awesome/css/font-awesome.min.css';
 import './content.css';
 
 var titleNoteError = "you are yet to type into it";
@@ -68,8 +65,6 @@ class Content extends React.Component {
       componentDidMount(){
         //   componentDidMount is the method that makes the data
         // available once the page load
-        
-       
         // this.setState({listNote: noteListA});
         
 
@@ -153,7 +148,7 @@ class Content extends React.Component {
                 <Link className="nav-link parentChild setFontColor" to="/">Fancy Notes</Link>
               </li>
             </ul>
-            <form className="form-inline my-2 my-lg-0">
+            <form className="form-inline my-2 my-lg-0" style={{marginRight: '4%'}}>
             
               {/* <button className="btn btn-outline-primary my-2 my-sm-0 setFontColor" type="submit">Sign in</button> */}
               {/* <button style={{height: '35px'}} data-toggle="modal" data-target="#exampleModal"
@@ -252,8 +247,8 @@ class Content extends React.Component {
 
                                     return <div style={{marginRight: '3%'}} key={index}>
                                             <div style={{paddingLeft: '0px', paddingRight: '0px'}} className="card col-md-12">
-                                            <div className="statTitle card-header">
-                                            <span style={{fontSize: '4em'}} className="fas fa-file "></span>
+                                            <div className="text-center statTitle card-header">
+                                            <span style={{fontSize: '4em', color: 'white' }} className="fa fa-file "></span>
                                             
                                             </div>
                                           <div className="card-body">
