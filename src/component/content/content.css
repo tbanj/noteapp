@@ -18,3 +18,7 @@
     background-color: #ffb22b;
     font-size: 20px;
 }
+
+.bg-light {
+    background-color: #ffb22b !important;
+}

@@ -129,8 +129,11 @@ class Content extends React.Component {
             const { formErrors } = this.state;
             return (
                 <div>
-                  <div  className="row navBackground fixed-top">
-            <nav style={{backgroundColor: 'orange'}} className="navbar navbar-expand-lg  col-md-12 ">
+                  <div  className="row  fixed-top">
+            <nav  className="navbar navbar-expand-lg  navbar-light bg-light col-md-12 ">
+            {/* <a class="navbar-brand" href="#">Navbar</a> */}
+            <Link style={{color: 'white'}} className="navbar-brand parentChild" to="/"><span style={{fontSize: '2em',
+    marginRight: '10%'}} className="fa fa-comment iconNote"></span></Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse"
            data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -138,11 +141,7 @@ class Content extends React.Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0 ">
-            <li className="nav-item">
-                
-                <Link style={{color: 'white'}} className="nav-link parentChild" to="/"><span style={{fontSize: '2em',
-    marginRight: '10%'}} className="fa fa-comment iconNote"></span></Link>
-              </li>
+            
               <li className="nav-item">
                 
                 <Link className="nav-link parentChild setFontColor" to="/">Fancy Notes</Link>
@@ -164,6 +163,7 @@ class Content extends React.Component {
             </form>
           </div>
         </nav>
+          
           </div>
 
 
