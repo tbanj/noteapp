@@ -166,7 +166,7 @@ class Content extends React.Component {
             const { formErrors } = this.state;
             return (
                 <div>
-                  <div style={{marginBottom: '10%'}} className="row  fixed-top">
+                  <div  className="row  fixed-top">
             <nav  className="navbar navbar-expand-lg  navbar-light bg-light col-md-12 ">
             {/* <a class="navbar-brand" href="#">Navbar</a> */}
                 <Link style={{color: 'white'}} className="navbar-brand parentChild" to="/"><span style={{fontSize: '2em',
@@ -281,13 +281,13 @@ class Content extends React.Component {
 </div>
 
 
-                      <div  className ="row">
+                      <div className ="text-center row">
                                 <div className="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
-                                    <div style={{marginLeft: "4%"}} className="row">
+                                    <div style={{marginTop: '10%', marginLeft: "4%"}} className="row">
                         {
                                       noteListA.map((data, index) => {
 
-                                        return <div style={{marginRight: '3%', marginBottom: '5%'}} key={index}>
+                                        return <div className="increaseMargin" style={{marginRight: '3%', marginBottom: '5%'}} key={index}>
                                                 <div style={{paddingLeft: '0px', paddingRight: '0px'}} className="card col-md-10 offset-md-1 col-sm-8 offset-sm-2">
                                                 <div className="text-center statTitle card-header">
                                                 <span style={{fontSize: '4em', color: 'white' }} className="fa fa-file "></span>

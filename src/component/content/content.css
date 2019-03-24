@@ -22,3 +22,10 @@
 .bg-light {
     background-color: #ffb22b !important;
 }
+
+@media only screen and (max-width: 600px) {
+    .increaseMargin {
+        margin-top: 14%;
+        margin-right: 10px;
+    }
+}
