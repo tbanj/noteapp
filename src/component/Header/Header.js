@@ -8,7 +8,7 @@ class Header extends React.Component {
     render() {
         return (
             <div  className="row navBackground fixed-top">
-            <nav style={{backgroundColor: 'orange'}} className="navbar navbar-expand-lg  col-md-12 ">
+            <nav style={{backgroundColor: 'orange'}} className="navbar navbar-expand-lg navbar-light bg-light col-md-12 ">
           <button className="navbar-toggler" type="button" data-toggle="collapse"
            data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"
             aria-expanded="false" aria-label="Toggle navigation">

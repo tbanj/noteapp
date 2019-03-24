@@ -13,3 +13,7 @@
     font-size: 2em;
     margin-right: 20%;
 }
+
+.bg-light {
+    background-color: #ffb22b !important;
+}
