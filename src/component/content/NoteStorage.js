@@ -1,19 +1,4 @@
-    
-    
-    
-// export default function getItemsFromStorage(){
-//      let noteListA;
-//     if(localStorage.getItem('items') === null){
-//       noteListA = [];
-//     } else {
-//       noteListA = JSON.parse(localStorage.getItem('items'));
-//     }
-//     return noteListA;
-  
-//   }
-
-  class NoteStorage {
-    // constructor () {}
+class NoteStorage {
 
       storeItem(item){
       let noteListA;
@@ -24,7 +9,6 @@
         // Push new item
         noteListA.push(item);
         
-        // noteListA.push(item);
         // Set ls
         localStorage.setItem('items', JSON.stringify(noteListA));
       } else {
@@ -33,15 +17,10 @@
     
         // Push new item
         noteListA.push(item);
-        console.log(noteListA.reverse());
-        
-    
-        // Re set ls
+        // Reset ls
         localStorage.setItem('items', JSON.stringify(noteListA));
       }
     }
-
-    
 
     getItemsFromStorage(){
              let noteListA;
@@ -62,8 +41,6 @@
       
             noteListA.forEach(function(item, index){
               if(updatedItem.id === item.id){
-                console.log(updatedItem);
-                
                 noteListA.splice(index, 1, updatedItem);
               }
             });
