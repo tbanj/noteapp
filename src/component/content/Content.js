@@ -9,45 +9,11 @@ import noteStorage from './NoteStorage';
 
 const getItem = new noteStorage();
 
-// console.log(getItem.getItemsFromStorage());
-
-
-
-
 var titleNoteError = "you are yet to type into it";
 var  bodyNoteError ="You didnt input any note";
 
-let noteListA= [
-            // {title: 'Welcome home' , content: 'djhdjjkdjkdkdndkkdkdkdkdkdkkdkdkkd'},
-            // {title: 'How are you', content: "yedfhfhhfhfhf"},
-            // {title: 'Love you so much', content: "fhhfhfhhfhfhhfhfhfhhf"},
-            
-]
-let eachNote;
+let noteListA= [ ];
 
-// if(noteListA === null) {
-//       noteListA= [];
-// }
-
-// const noteStorage = new storageCtrl();
-// console.log(noteStorage.greetings());
-
-
-
-
-
-    
-    // getItemsFromStorage();
-
-    
-
-     
-
-
-
-  
-  
-  
   const formValid = ({ formErrors, ...rest }) => {
     let valid = true;
 
@@ -73,74 +39,100 @@ class Content extends React.Component {
         this.handleStoreItem = this.handleStoreItem.bind(this);
     
         this.state = {
-          
-          
           listNote: [],
           titleNote: "",
           bodyNote: "",
+          editTitle: "",
+          editBody: "",
+          editId:"",
           datas: "",
-          
           formErrors: {
             titleNote: "",
             bodyNote: "",
-            
           },
           errorbodyNote: false,
             errorTitle: false,
         };
       }
 
-      // componentDidMount()
       
+      // componentDidMount()    react life cycle
       componentWillMount(){
         //   componentWillMount is the method that makes the data
         // available  before the page load finish 
         // in angular its ngOnit()
         
-        noteListA =getItem.getItemsFromStorage();
-        
-        
+        noteListA =getItem.getItemsFromStorage()
+        console.log(noteListA);
         
         
       }
 
       
       handleStoreItem () {
+        console.log(this.state.listNote);
         getItem.storeItem(this.state.listNote);
       }
+
+      handleDeleteItem(id) {
+        const deleNote = noteListA.filter((value)=> value.id !== id);
+        noteListA = deleNote;
+        this.setState({listNote: noteListA});
+        getItem.deleteItemFromStorage(id);
+      }
+
+      handleEditItem(data,index) {
+        console.log(data.id);
+        this.setState({editId: data.id,editTitle: data.title, editBody: data.body});
+        
+        
+        
+        // const deleNote = noteListA.filter((value)=> value.id !== id);
+        // noteListA = deleNote;
+        // this.setState({listNote: noteListA});
+        // getItem.updateItemStorage(updatedItem);
+      }
+
+      saveEditItem(updatedItem) {
+        const editNote = noteListA.filter((value)=> value.id === updatedItem.id);
+        if(editNote[0].id=== updatedItem.id) {console.log('hello');
+        editNote[0].id =updatedItem.id;
+        editNote[0].title =updatedItem.title;
+        editNote[0].body =updatedItem.body;
+        }
+        getItem.updateItemStorage(updatedItem);
+        this.setState({editTitle: ""});
+        this.setState({editBody: ""});
+        this.setState({editId: ""});
+      }
+      
+      
+      
     
       handleSubmit = e => {
         e.preventDefault();
     
         if (formValid(this.state)) {
           console.log(`
-           
-            
             Note Title: ${this.state.titleNote}
             Note Body: ${this.state.bodyNote}
-          `);
-          
-          
+          `);   
           
           alert('registration successful')
         } else {
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
         }
       };
-    
-
-    
       handleChange = e => {
         this.setState({errorbodyNote: false});
         this.setState({errorTitle: false});
+        
         
         e.preventDefault();
         const { name, value } = e.target;
         let formErrors = { ...this.state.formErrors };
     
         switch (name) {
-        
-          
           case "titleNote":
             formErrors.titleNote =
               value.length < 3 ? titleNoteError : "";
@@ -154,12 +146,15 @@ class Content extends React.Component {
           default:
             break;
         }
-        this.setState({listNote: {id: noteListA.length + 1, title: this.state.titleNote, body: this.state.bodyNote}});
+        
+        
+       
         this.setState({ formErrors, [name]: value }, () =>
          console.log(this.state)
         
          );
          
+        this.setState({listNote: {id: noteListA.length + 1, title: this.state.titleNote, body: this.state.bodyNote}});
       };
 
         render() {
@@ -168,7 +163,7 @@ class Content extends React.Component {
                 <div>
                   <div  className="row  fixed-top">
             <nav  className="navbar navbar-expand-lg  navbar-light bg-light col-md-12 ">
-            {/* <a class="navbar-brand" href="#">Navbar</a> */}
+            {/* <a className="navbar-brand" href="#">Navbar</a> */}
                 <Link style={{color: 'white'}} className="navbar-brand parentChild" to="/"><span style={{fontSize: '2em',
                   marginRight: '10%'}} className="fa fa-comment iconNote"></span></Link>    
           <button className="navbar-toggler" type="button" data-toggle="collapse"
@@ -182,15 +177,8 @@ class Content extends React.Component {
               
             </ul>
             <form className="form-inline my-2 my-lg-0" style={{marginRight: '4%'}}>
-            
-              {/* <button className="btn btn-outline-primary my-2 my-sm-0 setFontColor" type="submit">Sign in</button> */}
-              {/* <button style={{height: '35px'}} data-toggle="modal" data-target="#exampleModal"
-                    className="btn btn-outline-primary my-2 my-sm-0 setFontColor">
-                        <p className="setFontColor">Sign in</p>
-                    </button> */}
-
                  <button style={{backgroundColor: '#ffb22b'}} type="button"
-                  className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  className="btn btn-primary" data-toggle="modal" data-target="#noteModal">
                               New Notes
                 </button>
 
@@ -201,18 +189,89 @@ class Content extends React.Component {
           </div>
 
 
-                  <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  
+{/* 
+              <div className="container" >
+                <div className="col-md-12  col-sm-12 py-5">
+                                <div style={{marginTop: '10%', marginLeft: "4%"}} className="row">
+                    {
+                                  noteListA.map((data, index) => {
+
+                                    return <div className="increaseMargin" style={{marginRight: '3%', marginBottom: '5%'}} key={index}>
+                                            <div style={{paddingLeft: '0px', paddingRight: '0px'}} className="card col-md-12 col-sm-12">
+                                            <div className="text-center statTitle card-header">
+                                            <span style={{fontSize: '4em', color: 'white' }} className="fa fa-file "></span>
+                                            
+                                            </div>
+                                          <div className="card-body">
+                                            <h5 className="card-title">
+                                            {data.title}
+                                            </h5>
+                                            <p className="card-text">{data.body}</p>
+                                            
+                                          </div>
+                                        </div>
+                                    </div>
+                                  })
+                                }
+                                  </div>
+                            </div>
+                </div> */}
+
+
+
+
+  <div className="container">
+  <div className="py-5"></div>
+    <div className="row py-5">
+      { noteListA.map((data, index) => {
+        return  <div className="col-sm-12 col-md-4 col-lg-3"  style={{marginBottom:'20px'}} key={index}>
+            <div className="card">
+              <div className="card-header">
+                <div className="row">
+                    <div className="px-1" style={{whiteSpace: 'nowrap',
+                        fontWeight: 'bold', 
+                        width: '190px', 
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'}}>{data.title}</div>
+                        <h6 className="card-title">
+                      <i  className="float-right fa fa-trash px-2 deleteCursor"  onClick={()=>{this.handleDeleteItem(data.id);}}></i>&nbsp;
+                      <i data-toggle="modal"  data-target="#editModal" className="float-right fas fa-pencil-alt editCursor" onClick={()=>{this.handleEditItem(data, index)}}
+                      
+                      ></i>
+                  </h6>
+                </div>
+              </div>
+              <div className="card-body">
+              
+                <p className="card-text">
+                {data.body}
+                </p>
+                
+              </div>
+       </div>
+       </div>
+      })}
+     
+    </div> 
+  </div>  
+
+
+
+
+
+      {/* modal to insert Note */}
+  <div className="modal fade" id="noteModal" tabIndex="-1" role="dialog" aria-labelledby="noteModalLabel" aria-hidden="true">
                           <div className="modal-dialog" role="document">
                             <div className="modal-content">
                               <div className="modal-header">
-                                {/* <h5 className="modal-title" id="exampleModalLabel">Title of Note</h5> */}
 
                                 <form className="container mb-5" onSubmit={this.handleSubmit} noValidate >
                                
                                 <div id="parentLast" className="col-md-12 col-sm-12 form-group">
                     <label style={{fontWeight: "bold"}}>Title of Note  <span className="required">*</span> </label>
                     <input type="text" className="form-control"  placeholder="Title of Note" 
-                          name="titleNote"  maxLength="20" value={this.state.titleNote}
+                          name="titleNote"  maxLength="50" value={this.state.titleNote}
                           noValidate onChange={this.handleChange} required/>
                        {this.state.errorTitle ?<span id="checkEmployee" className="text-danger">{titleNoteError}</span>: ""}
                       
@@ -248,14 +307,8 @@ class Content extends React.Component {
 
                                 {formValid(this.state) ?<button type="button" 
                                 onClick={()=>{
-                                  // eachNote = {title: this.state.titleNote, content: this.state.bodyNote};
-                                  // this.getItem.storeItem(this.state.listNote);
-                                  // noteListA.push(this.state.listNote);
                                   this.handleStoreItem();
                                   noteListA =getItem.getItemsFromStorage();
-
-                                  // this.setState({listNote: noteListA});
-                                    console.log(noteListA);
                                     this.setState({titleNote: ""});
                                     this.setState({bodyNote: ""});
                                     alert('note submitted ');
@@ -269,8 +322,7 @@ class Content extends React.Component {
                                       }
   
                                       if(this.state.titleNote === null) {
-                                        this.setState({errorTitle: true});
-                                            
+                                        this.setState({errorTitle: true});    
                                       }
                                     }
                                   }
@@ -279,36 +331,40 @@ class Content extends React.Component {
                             </div>
                           </div>
 </div>
-
-
-                      <div className ="text-center row">
-                                <div className="col-md-10 offset-md-1 col-sm-10 offset-sm-1">
-                                    <div style={{marginTop: '10%', marginLeft: "4%"}} className="row">
-                        {
-                                      noteListA.map((data, index) => {
-
-                                        return <div className="increaseMargin" style={{marginRight: '3%', marginBottom: '5%'}} key={index}>
-                                                <div style={{paddingLeft: '0px', paddingRight: '0px'}} className="card col-md-10 offset-md-1 col-sm-8 offset-sm-2">
-                                                <div className="text-center statTitle card-header">
-                                                <span style={{fontSize: '4em', color: 'white' }} className="fa fa-file "></span>
-                                                
-                                                </div>
-                                              <div className="card-body">
-                                                <div className="card-title">
-                                                {data.title}
-                                                </div>
-                                                <p className="card-text">{data.body}</p>
-                                                
-                                              </div>
-                                            </div>
-                                        </div>
-                                      })
-                                    }
-                    </div>
-                                </div>
-                                    
-                      </div>
                 
+
+                                {/* modal to edit Note */}
+                    <div className="modal fade" id="editModal" tabIndex="-1" role="dialog"  aria-hidden="true">
+                      <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                        <input name="editTitle" value={this.state.editTitle} onChange={this.handleChange} 
+                          style={{width: '40%'}} className="form-control"  />
+                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div className="modal-body">
+                          <input className="form-control" style={{height: '60px' }} value={this.state.editBody} 
+                          name="editBody" onChange={this.handleChange} />
+                          </div>
+                          <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {
+                                (!this.state.editTitle.length || !this.state.editBody.length) ?  '' : 
+                                <button type="button"  data-dismiss="modal" onClick={()=>{
+                                  this.saveEditItem({id: this.state.editId, title: this.state.editTitle, body:this.state.editBody})
+                                    
+                                    alert('note submitted ');
+                                    
+                                }}  className="btn btn-success">Save
+                              </button>
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                 </div>
             );
         }

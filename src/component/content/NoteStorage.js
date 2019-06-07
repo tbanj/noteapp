@@ -13,15 +13,18 @@
 //   }
 
   class NoteStorage {
-    constructor () {}
+    // constructor () {}
 
       storeItem(item){
       let noteListA;
+      // let arrayNote =[];
       // Check if any items in ls
       if(localStorage.getItem('items') === null){
         noteListA = [];
         // Push new item
         noteListA.push(item);
+        
+        // noteListA.push(item);
         // Set ls
         localStorage.setItem('items', JSON.stringify(noteListA));
       } else {
@@ -30,6 +33,8 @@
     
         // Push new item
         noteListA.push(item);
+        console.log(noteListA.reverse());
+        
     
         // Re set ls
         localStorage.setItem('items', JSON.stringify(noteListA));
@@ -57,6 +62,8 @@
       
             noteListA.forEach(function(item, index){
               if(updatedItem.id === item.id){
+                console.log(updatedItem);
+                
                 noteListA.splice(index, 1, updatedItem);
               }
             });

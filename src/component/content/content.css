@@ -29,3 +29,13 @@
         margin-right: 10px;
     }
 }
+
+.deleteCursor {
+    cursor: pointer;
+    color: red;
+}
+
+.editCursor {
+    cursor: pointer;
+    color: limegreen;
+}
